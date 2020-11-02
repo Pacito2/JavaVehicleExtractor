@@ -4,9 +4,7 @@ import javax.swing.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -64,16 +62,17 @@ public class Extractor {
                     //Writing relevant lines and replacement of function names
                     while(reader.hasNextLine()){
                         String data = reader.nextLine();
-
                         if(data.contains(category[1]) && !data.toLowerCase().contains("open"))
                             writer.write(data
                                     .replaceAll("func_78793_a", "setRotationPoint")
                                     .replaceAll("field_78795_f", "rotateAngleX")
                                     .replaceAll("field_78808_h", "rotateAngleZ")
                                     .replaceAll("field_78796_g", "rotateAngleY")
-                                    .replaceAll("func_78790_a", "addbox")
+                                    .replaceAll("func_78790_a", "addBox")
+                                    .replaceAll("f", "F")
+                                    .replaceAll("\\(ModelBase\\)", "")
                                     + "\n");
-                        else if(data.contains("int texture"))
+                        else if(data.contains("texture") && !data.contains("ModelRendererTurbo"))
                             writer.write(data + "\n");
                     }
                     writer.close();
